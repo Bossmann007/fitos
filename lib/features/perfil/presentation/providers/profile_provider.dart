@@ -3,10 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/entities/profile.dart';
 import '../../../../core/use_cases/use_case.dart';
 import '../../data/repositories/profile_repo_impl.dart';
+import '../../domain/repositories/profile_repository.dart';
 import '../../domain/use_cases/get_profile.dart';
 import '../../domain/use_cases/save_profile.dart';
 
-final profileRepoProvider = Provider((_) => ProfileRepoImpl());
+final profileRepoProvider = Provider<ProfileRepository>((_) => ProfileRepoImpl());
 
 final saveProfileProvider = Provider(
   (ref) => SaveProfile(ref.read(profileRepoProvider)),

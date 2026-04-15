@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:fitos/core/entities/workout.dart';
-import 'package:fitos/core/entities/exercise.dart';
 import 'package:fitos/features/treinos/presentation/workout_session_screen.dart';
 import 'package:fitos/features/treinos/presentation/providers/workout_session_provider.dart';
 import 'package:fitos/features/treinos/domain/repositories/workout_repository.dart';
@@ -12,8 +11,15 @@ import 'package:fitos/features/treinos/domain/use_cases/save_workout.dart';
 
 class MockWorkoutRepository extends Mock implements WorkoutRepository {}
 
+// Fake necessário para mocktail poder usar any() com tipo Workout
+class _FakeWorkout extends Fake implements Workout {}
+
 void main() {
   late MockWorkoutRepository mockRepo;
+
+  setUpAll(() {
+    registerFallbackValue(_FakeWorkout());
+  });
 
   setUp(() {
     mockRepo = MockWorkoutRepository();
