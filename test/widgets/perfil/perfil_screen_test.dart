@@ -2,13 +2,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fitos/core/entities/profile.dart';
+import 'package:fitos/features/perfil/domain/repositories/profile_repository.dart';
 import 'package:fitos/features/perfil/presentation/perfil_screen.dart';
+import 'package:fitos/features/perfil/presentation/providers/profile_provider.dart';
+
+/// Repositório falso que não acessa Hive
+class _FakeProfileRepo implements ProfileRepository {
+  @override
+  Profile? get() => null;
+
+  @override
+  void save(Profile profile) {}
+}
 
 void main() {
+  // Override profileRepoProvider para não acessar Hive nos testes
+  final overrides = [
+    profileRepoProvider.overrideWith((_) => _FakeProfileRepo()),
+  ];
+
   testWidgets('PerfilScreen exibe formulário com 4 campos', (tester) async {
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(home: PerfilScreen()),
+      ProviderScope(
+        overrides: overrides,
+        child: const MaterialApp(home: PerfilScreen()),
       ),
     );
 
@@ -19,8 +37,9 @@ void main() {
 
   testWidgets('PerfilScreen valida campo nome vazio', (tester) async {
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(home: PerfilScreen()),
+      ProviderScope(
+        overrides: overrides,
+        child: const MaterialApp(home: PerfilScreen()),
       ),
     );
 

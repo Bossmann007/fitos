@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../../../historico/presentation/providers/historico_provider.dart';
+import '../../historico/presentation/providers/historico_provider.dart';
 import 'providers/progresso_provider.dart';
 
 class ProgressoScreen extends ConsumerWidget {
@@ -15,7 +15,7 @@ class ProgressoScreen extends ConsumerWidget {
     final selectedEx = ref.watch(selectedExerciseProvider);
     final exData = ref.watch(exerciseProgressProvider);
 
-    final exerciseNames = {
+    final exerciseNames = <String>{
       for (final w in history)
         for (final s in w.sets) s.exerciseName
     }.toList();
