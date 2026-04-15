@@ -1,0 +1,25 @@
+# Flutter build artifacts
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Hive generated adapters (gerados pelo build_runner)
+*.g.dart
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+
+# Android
+android/.gradle/
+android/local.properties
+
+# Misc
+.DS_Store
+*.log
