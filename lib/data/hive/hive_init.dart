@@ -1,4 +1,5 @@
 // lib/data/hive/hive_init.dart
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
 import 'hive_boxes.dart';
@@ -10,6 +11,7 @@ import '../../features/treinos/data/models/daily_log_hive_model.dart';
 
 class HiveInit {
   static Future<void> initialize() async {
+    if (kIsWeb) return; // Web usa dados em memória
     await Hive.initFlutter();
 
     // Registra todos os adaptadores gerados pelo build_runner
